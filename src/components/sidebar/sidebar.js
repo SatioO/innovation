@@ -9,10 +9,10 @@ export const Sidebar = ({ title }) => {
 
 			<ul className="list-unstyled components">
 				<li>
-					<Link to="/">Forms</Link>
+					<Link to="/form">Forms</Link>
 				</li>
 				<li>
-					<Link to="/">Editor</Link>
+					<Link to="/draft">Editor</Link>
 				</li>
 				<li>
 					<Link to="/">Charts</Link>

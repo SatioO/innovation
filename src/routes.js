@@ -1,11 +1,12 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import { Home } from "./containers";
+import { Form, Draft } from "./containers";
 
 export default () => {
 	return (
 		<Switch>
-			<Route exact path="/" component={Home} />
+			<Route exact path="/form" component={Form} />
+			<Route exact path="/draft" component={Draft} />
 		</Switch>
 	);
 };
