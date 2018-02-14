@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 export const Sidebar = ({ title }) => {
 	return (
 		<nav id="sidebar">
@@ -9,13 +9,13 @@ export const Sidebar = ({ title }) => {
 
 			<ul className="list-unstyled components">
 				<li>
-					<a href="">Forms</a>
+					<Link to="/">Forms</Link>
 				</li>
 				<li>
-					<a href="">Editor</a>
+					<Link to="/">Editor</Link>
 				</li>
 				<li>
-					<a href="">Charts</a>
+					<Link to="/">Charts</Link>
 				</li>
 			</ul>
 		</nav>

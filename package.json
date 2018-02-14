@@ -10,8 +10,10 @@
 		"react-redux": "^5.0.6",
 		"react-router-dom": "^4.2.2",
 		"react-router-redux": "^4.0.8",
+		"react-router": "^4.2.0",
 		"redux-thunk": "^2.2.0",
-		"history": "^4.7.2"
+		"history": "^4.7.2",
+		"scroll-behavior": "^0.9.9"
 	},
 	"scripts": {
 		"start": "react-scripts start",
