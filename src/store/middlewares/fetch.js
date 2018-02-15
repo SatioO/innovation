@@ -1,6 +1,5 @@
 export default client => () => next => action => {
 	const { promise, type, ...rest } = action;
-	console.log(promise);
 	if (!promise) return next(action);
 
 	const SUCCESS = type;

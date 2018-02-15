@@ -1,22 +1,45 @@
-import React, { Component } from "react";
+import React from "react";
 import { connect } from "react-redux";
+import { Mentions } from "../../components";
 import { getMentions } from "../../store";
 
-class Draft extends Component {
+class Draft extends React.Component {
+	componentWillMount() {
+		this.props.getMentions({
+			query: `{ 
+				profiles(category:"leadership") {
+					total
+					items {
+						name
+					}
+				}
+			}`
+		});
+	}
+
 	render() {
-		return <div />;
+		const { mentions } = this.props;
+
+		return (
+			<div>
+				<h2>Mentions Example</h2>
+				<Mentions mentions={mentions.data} />
+			</div>
+		);
 	}
 }
 
 const mapStateToProps = state => {
 	return {
-		draft: state.draft
+		mentions: state.mentions
 	};
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
-		login: _ => dispatch(getMentions())
+		getMentions: query => {
+			dispatch(getMentions(query));
+		}
 	};
 };
 

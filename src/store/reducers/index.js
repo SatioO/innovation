@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
 import { routerReducer as routing } from "react-router-redux";
-import { draft } from "./draft";
+import mentions from "./mentions";
 
-export default combineReducers({ routing, draft });
+export default combineReducers({ routing, mentions });
