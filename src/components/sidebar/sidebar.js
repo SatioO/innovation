@@ -1,9 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
+
 export const Sidebar = ({ title }) => {
 	return (
 		<nav id="sidebar">
-			<div className="sidebar-header">
+			<div className="sidebarHeader">
 				<h3>{title}</h3>
 			</div>
 

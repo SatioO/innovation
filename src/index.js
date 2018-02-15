@@ -1,13 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
-
-import registerServiceWorker from "./registerServiceWorker";
 import { Provider } from "react-redux";
-import store from "./store";
-import { App } from "./containers";
 import { BrowserRouter } from "react-router-dom";
+import registerServiceWorker from "./registerServiceWorker";
+import axios from "axios";
+import { configureStore } from "./store";
+import { App } from "./containers";
 
-const target = document.querySelector("#root");
+const store = configureStore(axios, {});
 
 ReactDOM.render(
 	<Provider store={store}>
@@ -15,6 +15,7 @@ ReactDOM.render(
 			<App />
 		</BrowserRouter>
 	</Provider>,
-	target
+	document.querySelector("#root")
 );
+
 registerServiceWorker();

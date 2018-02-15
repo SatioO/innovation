@@ -1,10 +1,5 @@
 import { combineReducers } from "redux";
-import { routerReducer } from "react-router-redux";
-import draft from "./draft";
+import { routerReducer as routing } from "react-router-redux";
+import { draft } from "./draft";
 
-const InnovationApp = combineReducers({
-	routing: routerReducer,
-	draft
-});
-
-export default InnovationApp;
+export default combineReducers({ routing, draft });

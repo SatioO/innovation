@@ -1,5 +1,5 @@
 import React from "react";
 
-export const Form = () => {
+export default () => {
 	return <div>Form Route</div>;
 };
