@@ -1,1 +1,5 @@
-export { default as Form } from "./form";
+import React from "react";
+
+export default () => {
+	return <div>Form Route</div>;
+};
