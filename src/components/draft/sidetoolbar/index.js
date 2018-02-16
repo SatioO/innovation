@@ -1,15 +1,21 @@
 import React, { Component } from "react";
-import Editor, { createEditorStateWithText } from "draft-js-plugins-editor";
-import createEmojiPlugin from "draft-js-emoji-plugin";
-import editorStyles from "./editorStyles.css";
-import "draft-js-emoji-plugin/lib/plugin.css";
-const emojiPlugin = createEmojiPlugin();
-const { EmojiSuggestions, EmojiSelect } = emojiPlugin;
-const plugins = [emojiPlugin];
-const text = `Cool, we can have all sorts of Emojis here. 🙌
-🌿☃️🎉🙈 aaaand maybe a few more here 🐲☀️🗻 Quite fun!`;
 
-export default class Emoji extends Component {
+import Editor, { createEditorStateWithText } from "draft-js-plugins-editor";
+
+import createToolbarPlugin from "draft-js-static-toolbar-plugin";
+import editorStyles from "./editorStyles.css";
+import buttonStyles from "./buttonStyles.css";
+import toolbarStyles from "./toolbarStyles.css";
+
+const toolbarPlugin = createToolbarPlugin({
+	theme: { buttonStyles, toolbarStyles }
+});
+const { Toolbar } = toolbarPlugin;
+const plugins = [toolbarPlugin];
+const text =
+	"In this editor a toolbar with a lot more options shows up once you select part of the text …";
+
+export default class ThemedToolbarEditor extends Component {
 	state = {
 		editorState: createEditorStateWithText(text)
 	};
@@ -36,10 +42,7 @@ export default class Emoji extends Component {
 							this.editor = element;
 						}}
 					/>
-					<EmojiSuggestions />
-				</div>
-				<div className={editorStyles.options}>
-					<EmojiSelect />
+					<Toolbar />
 				</div>
 			</div>
 		);
