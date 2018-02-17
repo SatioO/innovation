@@ -1,69 +1,61 @@
 import React from "react";
-import { connect } from "react-redux";
-import {
-	Mentions,
-	Emoji,
-	Inline,
-	Hashtag,
-	SideToolbar,
-	Videos
-} from "../../components";
-import { getMentions } from "../../store";
+import { Link } from "react-router-dom";
 
-class Draft extends React.Component {
-	componentWillMount() {
-		this.props.abc({
-			query: `{ 
-				profiles(category:"leadership") {
-					total
-					items {
-						name
-					}
-				}
-			}`
-		});
-	}
-
-	shouldComponentUpdate(nextProps, nextState) {
-		const { mentions } = this.props;
-		return nextProps.mentions !== mentions;
-	}
-
-	render() {
-		const { mentions } = this.props;
-
-		return (
-			<div>
-				<h2>Mentions Demo</h2>
-				<Mentions mentions={mentions.data} />
-				<h2>Emojis Demo</h2>
-				<Emoji />
-				<br />
-				<h2>Hashtag Demo</h2>
-				<Hashtag />
-				<h2>Inline Demo</h2>
-				<Inline />
-				<h2>Side Toolbar Demo</h2>
-				<SideToolbar />
-				<h2>Videos Demo</h2>
-				<Videos />
-			</div>
-		);
-	}
-}
-
-const mapStateToProps = state => {
-	return {
-		mentions: state.mentions
-	};
+export const Draft = () => {
+	return (
+		<div>
+			<h3>
+				<Link to="/draft/mentions">Mentions Demo</Link> #
+			</h3>
+			<blockquote>
+				<p>This allows the user to choose an entry from a list</p>
+			</blockquote>
+			<hr />
+			<h3>
+				<Link to="/draft/emoji">Emojis Demo</Link> #
+			</h3>
+			<blockquote>
+				<p>
+					Consistent Emoji display across all platforms, independent of the host
+					system.
+				</p>
+			</blockquote>
+			<hr />
+			<h3>
+				<Link to="/draft/hashtag">Hashtag Demo</Link> #
+			</h3>
+			<blockquote>
+				<p>Highlighting words starting with a number sign (#).</p>
+			</blockquote>
+			<hr />
+			<h3>
+				<Link to="/draft/inline">Inline Demo</Link> #
+			</h3>
+			<blockquote>
+				<p>Toolbar shows up once we select part of the text</p>
+			</blockquote>
+			<hr />
+			<h3>
+				<Link to="/draft/sidebar">Static Toolbar Demo</Link> #
+			</h3>
+			<blockquote>
+				<p>The toolbar can be used for formatting text</p>
+			</blockquote>
+			<hr />
+			<h3>
+				<Link to="/draft/video">Videos Demo</Link> #
+			</h3>
+			<blockquote>
+				<p>The editor can be used to add videos</p>
+			</blockquote>
+			<hr />
+		</div>
+	);
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-	return {
-		abc: query => {
-			dispatch(getMentions(query));
-		}
-	};
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Draft);
+export { default as Mentions } from "./mentions";
+export { default as Emojis } from "./emoji";
+export { default as Hashtags } from "./hashtag";
+export { default as Inlines } from "./inline";
+export { default as SideToolbars } from "./sidetoolbar";
+export { default as Videos } from "./videos";

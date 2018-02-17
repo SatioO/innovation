@@ -9,7 +9,7 @@ const plugins = [hashtagPlugin];
 const text =
 	"In this editor, we can even apply our own styles … #design #theme";
 
-export default class CustomHashtagEditor extends Component {
+export default class Hashtags extends Component {
 	state = {
 		editorState: createEditorStateWithText(text)
 	};
