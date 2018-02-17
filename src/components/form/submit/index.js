@@ -25,7 +25,7 @@ const SubmitValidationForm = props => {
 				<hr />
 			</div>
 			{error ? (
-				<div class="alert alert-danger" role="alert">
+				<div className="alert alert-danger" role="alert">
 					{error && <strong>{error}</strong>} User does not exist
 				</div>
 			) : (

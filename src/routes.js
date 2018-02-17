@@ -7,7 +7,9 @@ import {
 	Validation,
 	Submit,
 	AsyncValidate,
-	InitialState
+	InitialState,
+	Nested,
+	Wizard
 } from "./containers";
 
 export default () => {
@@ -19,6 +21,8 @@ export default () => {
 			<Route exact path="/form/async" component={AsyncValidate} />
 			<Route exact path="/form/submit" component={Submit} />
 			<Route exact path="/form/initial" component={InitialState} />
+			<Route exact path="/form/wizard" component={Wizard} />
+			<Route exact path="/form/nested" component={Nested} />
 			<Route exact path="/draft" component={Draft} />
 		</Switch>
 	);

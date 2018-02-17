@@ -1,10 +1,11 @@
 import React from "react";
-import { SimpleForm } from "../../../components";
+import { Nested } from "../../../components";
 
 export default () => {
 	return (
-		<SimpleForm
+		<Nested
 			handleSubmit={e => {
+				e.preventDefault();
 				console.log(e);
 			}}
 		/>

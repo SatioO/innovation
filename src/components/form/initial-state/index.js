@@ -15,7 +15,7 @@ const data = {
 const colors = ["Red", "Orange", "Yellow", "Green", "Blue", "Indigo", "Violet"];
 
 let InitializeFromStateForm = props => {
-	const { handleSubmit, load, pristine, reset, submitting } = props;
+	const { load } = props;
 	return (
 		<div className="row">
 			<div className="col-md-12">
@@ -26,7 +26,6 @@ let InitializeFromStateForm = props => {
 				<form>
 					<div className="form-group">
 						<label>First Name</label>
-
 						<Field
 							name="firstName"
 							component="input"
@@ -37,7 +36,6 @@ let InitializeFromStateForm = props => {
 					</div>
 					<div className="form-group">
 						<label>Last Name</label>
-
 						<Field
 							name="lastName"
 							component="input"
@@ -48,7 +46,6 @@ let InitializeFromStateForm = props => {
 					</div>
 					<div className="form-group">
 						<label>Age</label>
-
 						<Field
 							name="age"
 							className="form-control"
@@ -118,23 +115,12 @@ let InitializeFromStateForm = props => {
 
 						<Field className="form-control" name="bio" component="textarea" />
 					</div>
-
-					<button type="submit" disabled={pristine || submitting}>
-						Submit
-					</button>
-					<button
-						type="button"
-						disabled={pristine || submitting}
-						onClick={reset}
-					>
-						Clear Values
-					</button>
 				</form>
 			</div>
 			<div className="col-md-4">
 				<div>
 					<button type="button" onClick={() => load(data)}>
-						Load Account
+						Load State
 					</button>
 				</div>
 				<br />

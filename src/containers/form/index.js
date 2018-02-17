@@ -50,6 +50,20 @@ export const Form = () => {
 				</p>
 			</blockquote>
 			<hr />
+			<h3>
+				<Link to="/form/nested">Nested Form</Link> #
+			</h3>
+			<blockquote>
+				<p>How to create and manipulate arrays of fields.</p>
+			</blockquote>
+			<hr />
+			<h3>
+				<Link to="/form/wizard">Wizard Form</Link> #
+			</h3>
+			<blockquote>
+				<p>How to create a multi-page "wizard" form.</p>
+			</blockquote>
+			<hr />
 		</div>
 	);
 };
@@ -59,3 +73,5 @@ export { default as Validation } from "./validation";
 export { default as Submit } from "./submit";
 export { default as AsyncValidate } from "./async-change";
 export { default as InitialState } from "./initial-state";
+export { default as Nested } from "./nested";
+export { default as Wizard } from "./wizard";

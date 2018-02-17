@@ -4,7 +4,8 @@ const asyncValidate = (values /*, dispatch */) => {
 	return sleep(1000).then(() => {
 		// simulate server latency
 		if (["john", "paul", "george", "ringo"].includes(values.username)) {
-			throw { username: "That username is taken" };
+			/*eslint no-throw-literal: "error"*/
+			throw new Error({ username: "That username is taken" });
 		}
 	});
 };
