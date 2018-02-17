@@ -41,7 +41,6 @@ const Entry = props => {
 					<img
 						src={mention.get("avatar")}
 						className={theme.mentionSuggestionsEntryAvatar}
-						role="presentation"
 						alt=""
 					/>
 				</div>

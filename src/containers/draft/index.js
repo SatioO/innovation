@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import {
 	Mentions,
 	Emoji,
-	// Images,
 	Inline,
 	Hashtag,
 	SideToolbar,
@@ -13,7 +12,7 @@ import { getMentions } from "../../store";
 
 class Draft extends React.Component {
 	componentWillMount() {
-		this.props.getMentions({
+		this.props.abc({
 			query: `{ 
 				profiles(category:"leadership") {
 					total
@@ -25,10 +24,10 @@ class Draft extends React.Component {
 		});
 	}
 
-	// shouldComponentUpdate(nextProps, nextState) {
-	// 	const { mentions } = this.props;
-	// 	return nextProps.mentions !== mentions;
-	// }
+	shouldComponentUpdate(nextProps, nextState) {
+		const { mentions } = this.props;
+		return nextProps.mentions !== mentions;
+	}
 
 	render() {
 		const { mentions } = this.props;
@@ -61,7 +60,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
-		getMentions: query => {
+		abc: query => {
 			dispatch(getMentions(query));
 		}
 	};
