@@ -16,7 +16,7 @@ export const Sidebar = ({ title }) => {
 					<Link to="/draft">Editor</Link>
 				</li>
 				<li>
-					<Link to="/">Charts</Link>
+					<Link to="/charts">Charts</Link>
 				</li>
 			</ul>
 		</nav>
