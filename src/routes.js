@@ -15,7 +15,8 @@ import {
 	Hashtags,
 	Inlines,
 	SideToolbars,
-	Videos
+	Videos,
+	Chart
 } from "./containers";
 
 export default () => {
@@ -38,6 +39,7 @@ export default () => {
 			<Route exact path="/draft/inline" component={Inlines} />
 			<Route exact path="/draft/sidebar" component={SideToolbars} />
 			<Route exact path="/draft/video" component={Videos} />
+			<Route exact path="/charts" component={Chart} />
 		</Switch>
 	);
 };

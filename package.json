@@ -17,20 +17,19 @@
 		"dotenv": "4.0.0",
 		"dotenv-expand": "4.2.0",
 		"draft-js": "^0.10.5",
-		"draft-js-mention-plugin": "^2.0.1",
-		"draft-js-emoji-plugin": "^2.0.1",
-		"draft-js-image-plugin": "^2.0.1",
-		"draft-js-plugins-editor": "^2.0.4",
-		"draft-js-inline-toolbar-plugin": "^2.0.1",
-		"draft-js-side-toolbar-plugin": "2.0.0",
-		"draft-js-hashtag-plugin": "^2.0.1",
-		"draft-js-static-toolbar-plugin": "^2.0.1",
-		"draft-js-linkify-plugin": "^2.0.1",
 		"draft-js-alignment-plugin": "^2.0.1",
-		"draft-js-drag-n-drop-plugin": "^2.0.1",
 		"draft-js-buttons": "^2.0.1",
+		"draft-js-drag-n-drop-plugin": "^2.0.1",
+		"draft-js-emoji-plugin": "^2.0.1",
+		"draft-js-hashtag-plugin": "^2.0.1",
+		"draft-js-image-plugin": "^2.0.1",
+		"draft-js-inline-toolbar-plugin": "^2.0.1",
+		"draft-js-linkify-plugin": "^2.0.1",
+		"draft-js-mention-plugin": "^2.0.1",
+		"draft-js-plugins-editor": "^2.0.4",
+		"draft-js-side-toolbar-plugin": "2.0.0",
+		"draft-js-static-toolbar-plugin": "^2.0.1",
 		"draft-js-video-plugin": "^2.0.1",
-		"redux-form": "^7.2.3",
 		"eslint": "4.10.0",
 		"eslint-config-react-app": "^2.1.0",
 		"eslint-loader": "1.9.0",
@@ -50,13 +49,16 @@
 		"promise": "8.0.1",
 		"raf": "3.4.0",
 		"react": "^16.2.0",
+		"react-bootstrap": "^0.32.1",
 		"react-dev-utils": "^5.0.0",
 		"react-dom": "^16.2.0",
+		"react-nvd3": "^0.5.7",
 		"react-redux": "^5.0.6",
 		"react-router": "^4.2.0",
 		"react-router-dom": "^4.2.2",
 		"react-router-redux": "^4.0.8",
 		"redux": "^3.7.2",
+		"redux-form": "^7.2.3",
 		"redux-thunk": "^2.2.0",
 		"scroll-behavior": "^0.9.9",
 		"style-loader": "0.19.0",
@@ -73,8 +75,12 @@
 		"test": "node scripts/test.js --env=jsdom"
 	},
 	"jest": {
-		"collectCoverageFrom": ["src/**/*.{js,jsx,mjs}"],
-		"setupFiles": ["<rootDir>/config/polyfills.js"],
+		"collectCoverageFrom": [
+			"src/**/*.{js,jsx,mjs}"
+		],
+		"setupFiles": [
+			"<rootDir>/config/polyfills.js"
+		],
 		"testMatch": [
 			"<rootDir>/src/**/__tests__/**/*.{js,jsx,mjs}",
 			"<rootDir>/src/**/?(*.)(spec|test).{js,jsx,mjs}"
@@ -84,10 +90,11 @@
 		"transform": {
 			"^.+\\.(js|jsx|mjs)$": "<rootDir>/node_modules/babel-jest",
 			"^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
-			"^(?!.*\\.(js|jsx|mjs|css|json)$)":
-				"<rootDir>/config/jest/fileTransform.js"
+			"^(?!.*\\.(js|jsx|mjs|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
 		},
-		"transformIgnorePatterns": ["[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$"],
+		"transformIgnorePatterns": [
+			"[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$"
+		],
 		"moduleNameMapper": {
 			"^react-native$": "react-native-web"
 		},
@@ -102,7 +109,9 @@
 		]
 	},
 	"babel": {
-		"presets": ["react-app"]
+		"presets": [
+			"react-app"
+		]
 	},
 	"eslintConfig": {
 		"extends": "react-app"
