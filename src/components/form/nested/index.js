@@ -1,121 +1,118 @@
 import React from "react";
-import { Field, FieldArray, reduxForm } from "redux-form";
-import validate from "./validate";
-import { connect } from "react-redux";
+import { Form, Field } from "react-final-form";
+import arrayMutators from "final-form-arrays";
+import { FieldArray } from "react-final-form-arrays";
 
-const renderField = ({ input, label, type, meta: { touched, error } }) => (
-	<div className="form-group">
-		<label>{label}</label>
-		<div>
-			<input
-				className="form-control"
-				{...input}
-				type={type}
-				placeholder={label}
-			/>
-			{touched && error && <span>{error}</span>}
-		</div>
-	</div>
-);
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
-const renderMembers = ({ fields, meta: { error, submitFailed } }) => (
-	<div>
-		<button type="button" onClick={() => fields.push({})}>
-			Add Employee
-		</button>
-		{submitFailed && error && <span>{error}</span>}
-		{fields.map((employee, index) => (
-			<div
-				className="card"
-				key={index}
-				style={{ padding: "20px", margin: "10px" }}
-			>
-				<div className="card-block">
-					<h4>Employee #{index + 1}</h4>
-					<Field
-						name={`${employee}.firstName`}
-						type="text"
-						component={renderField}
-						label="First Name"
-					/>
-					<Field
-						name={`${employee}.lastName`}
-						type="text"
-						component={renderField}
-						label="Last Name"
-					/>
-					<button type="button" onClick={() => fields.remove(index)}>
-						Remove Employee
-					</button>
-				</div>
-			</div>
-		))}
-	</div>
-);
-
-let FieldArraysForm = props => {
-	console.log(props);
-	const { handleSubmit, pristine, reset, submitting } = props;
-	return (
-		<div className="row">
-			<div className="col-md-12">
-				<h2>Nested Form</h2>
-				<hr />
-			</div>
-			<form className="col-md-8" onSubmit={handleSubmit}>
-				<div className="card">
-					<div className="card-block" style={{ padding: "10px" }}>
-						<div className="col-md-12">
-							<Field
-								name="CompanyName"
-								type="text"
-								component={renderField}
-								label="Company Name"
-							/>
-						</div>
-						<div className="col-md-12">
-							<FieldArray name="employees" component={renderMembers} />
-						</div>
-						<div className="col-md-12">
-							<br />
-							<button type="submit" disabled={submitting}>
-								Submit
-							</button>
-							<button
-								type="button"
-								disabled={pristine || submitting}
-								onClick={reset}
-							>
-								Clear Values
-							</button>
-						</div>
-					</div>
-				</div>
-			</form>
-			<div className="col-md-4">
-				<div className="card">
-					<div className="card-block" style={{ padding: "10px" }}>
-						<pre>
-							{JSON.stringify(
-								props.fieldArrays ? props.fieldArrays.values : undefined,
-								null,
-								2
-							)}
-						</pre>
-					</div>
-				</div>
-			</div>
-		</div>
-	);
+const onSubmit = async values => {
+	await sleep(300);
+	window.alert(JSON.stringify(values, 0, 2));
 };
 
-FieldArraysForm = reduxForm({
-	form: "fieldArrays", // a unique identifier for this form
-	validate
-})(FieldArraysForm);
+const FieldArraysForm = () => (
+	<div>
+		<Form
+			onSubmit={onSubmit}
+			mutators={{
+				...arrayMutators
+			}}
+			render={({
+				handleSubmit,
+				mutators: { push, pop }, // injected from final-form-arrays above
+				pristine,
+				reset,
+				submitting,
+				values
+			}) => {
+				return (
+					<div class="row">
+						<div className="col-md-12">
+							<h2>Array Fields</h2>
+							<hr />
+						</div>
 
-FieldArraysForm = connect(state => {
-	return state.form;
-})(FieldArraysForm);
+						<form onSubmit={handleSubmit}>
+							<div className="col-md-8">
+								<div className="form-group">
+									<label>Company</label>
+									<Field
+										name="company"
+										className="form-control"
+										autoComplete="off"
+										component="input"
+									/>
+								</div>
+								<div className="buttons">
+									<button
+										type="button"
+										onClick={() => push("customers", undefined)}
+									>
+										Add Customer
+									</button>
+									<button type="button" onClick={() => pop("customers")}>
+										Remove Customer
+									</button>
+								</div>
+								<br />
+								<FieldArray className="form-group" name="customers">
+									{({ fields }) =>
+										fields.map((name, index) => (
+											<div className="row" key={name}>
+												<label className="col-md-2">
+													<h6>Cust. #{index + 1}:</h6>
+												</label>
+												<label className="col-md-4">
+													<Field
+														name={`${name}.firstName`}
+														component="input"
+														autoComplete="off"
+														className="form-control"
+														placeholder="First Name"
+													/>
+												</label>
+												<label className="col-md-4">
+													<Field
+														name={`${name}.lastName`}
+														component="input"
+														autoComplete="off"
+														className="form-control"
+														placeholder="Last Name"
+													/>
+												</label>
+												<span
+													onClick={() => fields.remove(index)}
+													style={{ cursor: "pointer" }}
+												>
+													❌
+												</span>
+											</div>
+										))
+									}
+								</FieldArray>
+
+								<div className="buttons">
+									<button type="submit" disabled={submitting || pristine}>
+										Submit
+									</button>
+									<button
+										type="button"
+										onClick={reset}
+										disabled={submitting || pristine}
+									>
+										Reset
+									</button>
+								</div>
+							</div>
+							<div className="col-md-4">
+								<pre>{JSON.stringify(values, 0, 2)}</pre>
+							</div>
+						</form>
+					</div>
+				);
+			}}
+		/>
+	</div>
+);
 
 export default FieldArraysForm;

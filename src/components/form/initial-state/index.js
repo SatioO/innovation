@@ -48,6 +48,7 @@ class InitializeFromStateForm extends React.Component {
 											<Field
 												name="firstName"
 												component="input"
+												autoComplete="off"
 												className="form-control"
 												type="text"
 												placeholder="First Name"
@@ -59,6 +60,7 @@ class InitializeFromStateForm extends React.Component {
 												name="lastName"
 												className="form-control"
 												component="input"
+												autoComplete="off"
 												type="text"
 												placeholder="Last Name"
 											/>
@@ -69,6 +71,7 @@ class InitializeFromStateForm extends React.Component {
 												name="email"
 												component="input"
 												className="form-control"
+												autoComplete="off"
 												type="email"
 												placeholder="Email"
 											/>
@@ -78,6 +81,7 @@ class InitializeFromStateForm extends React.Component {
 											<Field
 												name="favoriteColor"
 												className="form-control"
+												autoComplete="off"
 												component="select"
 											>
 												<option />
@@ -199,6 +203,7 @@ class InitializeFromStateForm extends React.Component {
 												name="notes"
 												className="form-control"
 												component="textarea"
+												autoComplete="off"
 												placeholder="Notes"
 											/>
 										</div>

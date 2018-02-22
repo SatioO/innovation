@@ -1,169 +1,137 @@
 import React from "react";
-import { Field, reduxForm } from "redux-form";
-import { connect } from "react-redux";
+import { Form, Field } from "react-final-form";
 
-const required = value => (value ? undefined : "Required");
-const maxLength = max => value =>
-	value && value.length > max ? `Must be ${max} characters or less` : undefined;
-const maxLength15 = maxLength(15);
-export const minLength = min => value =>
-	value && value.length < min ? `Must be ${min} characters or more` : undefined;
-export const minLength2 = minLength(2);
-const number = value =>
-	value && isNaN(Number(value)) ? "Must be a number" : undefined;
-const minValue = min => value =>
-	value && value < min ? `Must be at least ${min}` : undefined;
-const minValue18 = minValue(18);
-const email = value =>
-	value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
-		? "Invalid email address"
-		: undefined;
-const tooOld = value =>
-	value && value > 65 ? "You might be too old for this" : undefined;
-const aol = value =>
-	value && /.+@aol\.com/.test(value)
-		? "Really? You still use AOL for your email?"
-		: undefined;
-const alphaNumeric = value =>
-	value && /[^a-zA-Z0-9 ]/i.test(value)
-		? "Only alphanumeric characters"
-		: undefined;
-export const phoneNumber = value =>
-	value && !/^(0|[1-9][0-9]{9})$/i.test(value)
-		? "Invalid phone number, must be 10 digits"
-		: undefined;
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
-const renderField = ({
-	input,
-	label,
-	type,
-	meta: { touched, error, warning }
-}) => (
-	<div>
-		<label>{label}</label>
-		<div>
-			<input
-				{...input}
-				placeholder={label}
-				className="form-control"
-				type={type}
-			/>
-			<small className="form-text" style={{ color: "red" }}>
-				{touched &&
-					((error && <span>{error}</span>) ||
-						(warning && <span>{warning}</span>))}
-			</small>
-		</div>
-	</div>
-);
-
-let FieldLevelValidationForm = props => {
-	const { handleSubmit, pristine, reset, submitting } = props;
-	console.log(props);
-	return (
-		<div className="row">
-			<div className="col-md-12">
-				<h2>Field Level Validation Form</h2>
-				<hr />
-			</div>
-			<div className="col-md-8">
-				<div className="card">
-					<div className="card-block" style={{ padding: "10px" }}>
-						<form onSubmit={handleSubmit}>
-							<div className="form-group">
-								<Field
-									name="username"
-									type="text"
-									component={renderField}
-									label="Username"
-									validate={[required, maxLength15, minLength2]}
-									warn={alphaNumeric}
-								/>
-							</div>
-							<div className="form-group">
-								<Field
-									name="email"
-									type="email"
-									component={renderField}
-									label="Email"
-									className="form-control"
-									validate={email}
-									warn={aol}
-								/>
-							</div>
-							<div className="form-group">
-								<Field
-									name="age"
-									type="number"
-									component={renderField}
-									label="Age"
-									className="form-control"
-									validate={[required, number, minValue18]}
-									warn={tooOld}
-								/>
-							</div>
-							<div className="form-group">
-								<Field
-									name="phone"
-									type="number"
-									className="form-control"
-									component={renderField}
-									label="Phone number"
-									validate={[required, phoneNumber]}
-								/>
-							</div>
-							<div>
-								<button type="submit" disabled={submitting}>
-									Submit
-								</button>
-								<button
-									type="button"
-									disabled={pristine || submitting}
-									onClick={reset}
-								>
-									Clear Values
-								</button>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-			<div className="col-md-4">
-				<div className="card">
-					<div className="card-block" style={{ padding: "10px" }}>
-						<div>
-							<b>Values</b>:
-							<pre>
-								{JSON.stringify(
-									props.fieldLevelValidation
-										? props.fieldLevelValidation.values
-										: undefined,
-									null,
-									2
-								)}
-							</pre>
-						</div>
-						<div>
-							<b>Valid</b>: &nbsp;
-							{JSON.stringify(
-								props.fieldLevelValidation ? props.valid : undefined,
-								null,
-								2
-							)}
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	);
+const onSubmit = async values => {
+	await sleep(300);
+	window.alert(JSON.stringify(values, 0, 2));
 };
 
-FieldLevelValidationForm = reduxForm({
-	form: "fieldLevelValidation" // a unique identifier for this form
-})(FieldLevelValidationForm);
+const required = value => (value ? undefined : "Required");
+const mustBeNumber = value => (isNaN(value) ? "Must be a number" : undefined);
+const minValue = min => value =>
+	isNaN(value) || value >= min ? undefined : `Should be greater than ${min}`;
+const composeValidators = (...validators) => value =>
+	validators.reduce((error, validator) => error || validator(value), undefined);
 
-FieldLevelValidationForm = connect(state => {
-	return state.form;
-})(FieldLevelValidationForm);
+const simpleMemoize = fn => {
+	let lastArg;
+	let lastResult;
+	return arg => {
+		if (!lastArg || arg !== lastArg) {
+			lastArg = arg;
+			lastResult = fn(arg);
+		}
+		return lastResult;
+	};
+};
+
+const usernameAvailable = simpleMemoize(async value => {
+	if (!value) {
+		return "Required";
+	}
+	await sleep(400);
+	if (
+		~["john", "paul", "george", "ringo"].indexOf(value && value.toLowerCase())
+	) {
+		return "Username taken!";
+	}
+});
+
+const FieldLevelValidationForm = () => (
+	<Form
+		onSubmit={onSubmit}
+		render={({
+			handleSubmit,
+			reset,
+			submitting,
+			pristine,
+			validating,
+			values
+		}) => (
+			<div class="row">
+				<div className="col-md-12">
+					<h2>Asynchronous Field-Level Validation</h2>
+					<hr />
+				</div>
+				<form onSubmit={handleSubmit}>
+					<div className="col-md-8">
+						<Field name="username" validate={usernameAvailable}>
+							{({ input, meta }) => (
+								<div className="form-group">
+									<label>Username</label>
+									<input
+										{...input}
+										className="form-control"
+										type="text"
+										placeholder="Username"
+										autoComplete="off"
+									/>
+									<span className="text-danger">
+										{meta.error && meta.touched && <span>{meta.error}</span>}
+									</span>
+									{validating && <div>Loading</div>}
+								</div>
+							)}
+						</Field>
+						<Field name="lastName" validate={required}>
+							{({ input, meta }) => (
+								<div className="form-group">
+									<label>Last Name</label>
+									<input
+										{...input}
+										className="form-control"
+										type="text"
+										placeholder="Last Name"
+										autoComplete="off"
+									/>
+									<span className="text-danger">
+										{meta.error && meta.touched && <span>{meta.error}</span>}
+									</span>
+								</div>
+							)}
+						</Field>
+						<Field
+							name="age"
+							validate={composeValidators(required, mustBeNumber, minValue(18))}
+						>
+							{({ input, meta }) => (
+								<div className="form-group">
+									<label>Age</label>
+									<input
+										{...input}
+										className="form-control"
+										type="text"
+										placeholder="Age"
+										autoComplete="off"
+									/>
+									<span className="text-danger">
+										{meta.error && meta.touched && <span>{meta.error}</span>}
+									</span>
+								</div>
+							)}
+						</Field>
+						<div className="buttons">
+							<button type="submit" disabled={submitting}>
+								Submit
+							</button>
+							<button
+								type="button"
+								onClick={reset}
+								disabled={submitting || pristine}
+							>
+								Reset
+							</button>
+						</div>
+					</div>
+					<div className="col-md-4">
+						<pre>{JSON.stringify(values, 0, 2)}</pre>
+					</div>
+				</form>
+			</div>
+		)}
+	/>
+);
 
 export default FieldLevelValidationForm;

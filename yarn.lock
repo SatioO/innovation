@@ -3084,6 +3084,10 @@ fill-range@^2.1.0:
     repeat-element "^1.1.2"
     repeat-string "^1.5.2"
 
+final-form-arrays@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/final-form-arrays/-/final-form-arrays-1.0.4.tgz#74330cb4d64ce07bb1c4a9084d0b65afdac6bf72"
+
 final-form@^4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/final-form/-/final-form-4.2.0.tgz#8743efbb75933ea3c7d1718b5c5ab9eb23b60026"
@@ -5859,6 +5863,10 @@ react-draft-wysiwyg@^1.12.10:
 react-error-overlay@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-4.0.0.tgz#d198408a85b4070937a98667f500c832f86bd5d4"
+
+react-final-form-arrays@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/react-final-form-arrays/-/react-final-form-arrays-1.0.3.tgz#69b3d2af5f50db1c1287b9f9554eef1243a1ea72"
 
 react-final-form@^3.1.0:
   version "3.1.0"
