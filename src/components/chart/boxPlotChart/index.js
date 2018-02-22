@@ -1,14 +1,12 @@
 import React from "react";
-import NVD3Chart from "react-nvd3"; 
-import { ChartTypes , AllOptions, AllData } from "../../../chartDefinition"
+import NVD3Chart from "react-nvd3";
+import { AllOptions, AllData } from "../../../chartDefinition";
 
 var datum = AllData.boxPlotChart;
-var options = AllOptions.boxPlotChart.chart
+var options = AllOptions.boxPlotChart.chart;
 
 const BoxPlotChart = props => {
-  return (
-    <NVD3Chart {...options} datum = {datum} />
-  );
+	return <NVD3Chart {...options} datum={datum} />;
 };
 
-export default BoxPlotChart
+export default BoxPlotChart;

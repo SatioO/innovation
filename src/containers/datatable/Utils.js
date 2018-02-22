@@ -42,16 +42,7 @@ export const Logo = () => (
 			alignItems: "center",
 			justifyContent: "center"
 		}}
-	>
-		For more examples, visit {""}
-		<br />
-		<a href="https://github.com/react-tools/react-table" target="_blank">
-			<img
-				src="https://github.com/react-tools/media/raw/master/logo-react-table.png"
-				style={{ width: `150px`, margin: ".5em auto .3em" }}
-			/>
-		</a>
-	</div>
+	/>
 );
 
 export const Tips = () => (

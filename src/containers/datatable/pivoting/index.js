@@ -1,5 +1,5 @@
 import React from "react";
-import { makeData, Logo, Tips } from "../Utils";
+import { makeData } from "../Utils";
 import _ from "lodash";
 
 // Import React Table

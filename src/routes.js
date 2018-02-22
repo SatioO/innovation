@@ -1,14 +1,6 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import {
-	InitialState,
-	Nested,
-	Wizard,
-	DataTable,
-	Chart,
-	Form,
-	Draft
-} from "./containers";
+import { InitialState, DataTable, Chart, Form, Draft } from "./containers";
 
 export default () => {
 	return (

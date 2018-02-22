@@ -81,9 +81,21 @@ class InitializeFromStateForm extends React.Component {
 												component="select"
 											>
 												<option />
-												<option value="#ff0000">❤️ Red</option>
-												<option value="#00ff00">💚 Green</option>
-												<option value="#0000ff">💙 Blue</option>
+												<option value="#ff0000">
+													<span role="img" aria-label="red">
+														❤️ Red
+													</span>
+												</option>
+												<option value="#00ff00">
+													<span role="img" aria-label="Green">
+														💚 Green
+													</span>
+												</option>
+												<option value="#0000ff">
+													<span role="img" aria-label="Blue">
+														💙 Blue
+													</span>
+												</option>
 											</Field>
 										</div>
 										<div className="form-group">
@@ -94,11 +106,31 @@ class InitializeFromStateForm extends React.Component {
 												component="select"
 												multiple
 											>
-												<option value="ham">🐷 Ham</option>
-												<option value="mushrooms">🍄 Mushrooms</option>
-												<option value="cheese">🧀 Cheese</option>
-												<option value="chicken">🐓 Chicken</option>
-												<option value="pineapple">🍍 Pinapple</option>
+												<option value="ham">
+													<span role="img" aria-label="Green">
+														🐷 Ham
+													</span>
+												</option>
+												<option value="mushrooms">
+													<span role="img" aria-label="Green">
+														🍄 Mushrooms
+													</span>
+												</option>
+												<option value="cheese">
+													<span role="img" aria-label="Green">
+														🧀 Cheese
+													</span>
+												</option>
+												<option value="chicken">
+													<span role="img" aria-label="Green">
+														🐓 Chicken
+													</span>
+												</option>
+												<option value="pineapple">
+													<span role="img" aria-label="Green">
+														🍍 Pinapple
+													</span>
+												</option>
 											</Field>
 										</div>
 										<div className="form-group">

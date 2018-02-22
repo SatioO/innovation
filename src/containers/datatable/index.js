@@ -1,5 +1,4 @@
 import React from "react";
-import { render } from "react-dom";
 import { gql } from "apollo-boost";
 import { graphql } from "react-apollo";
 
@@ -7,9 +6,6 @@ import { BasicTable } from "./basic";
 import { CustomWidth } from "./custom-width";
 import { Editable } from "./editable";
 import { Pivoting } from "./pivoting";
-
-// Import React Table
-import ReactTable from "react-table";
 
 const DemoQuery = gql`
 	{
