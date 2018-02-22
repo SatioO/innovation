@@ -37,22 +37,30 @@ class WizardForm extends Component {
 					<hr />
 				</div>
 				<div className="col-md-8">
-					{page === 1 && <WizardFormFirstPage onSubmit={this.nextPage} />}
-					{page === 2 && (
-						<WizardFormSecondPage
-							previousPage={this.previousPage}
-							onSubmit={this.nextPage}
-						/>
-					)}
-					{page === 3 && (
-						<WizardFormThirdPage
-							previousPage={this.previousPage}
-							onSubmit={this.onSubmit.bind(this)}
-						/>
-					)}
+					<div className="card">
+						<div className="card-block" style={{ padding: "10px" }}>
+							{page === 1 && <WizardFormFirstPage onSubmit={this.nextPage} />}
+							{page === 2 && (
+								<WizardFormSecondPage
+									previousPage={this.previousPage}
+									onSubmit={this.nextPage}
+								/>
+							)}
+							{page === 3 && (
+								<WizardFormThirdPage
+									previousPage={this.previousPage}
+									onSubmit={this.onSubmit.bind(this)}
+								/>
+							)}
+						</div>
+					</div>
 				</div>
 				<div className="col-md-4">
-					<pre>{JSON.stringify(this.state.data, null, 2)}</pre>
+					<div className="card">
+						<div className="card-block" style={{ padding: "10px" }}>
+							<pre>{JSON.stringify(this.state.data, null, 2)}</pre>
+						</div>
+					</div>
 				</div>
 			</div>
 		);

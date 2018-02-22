@@ -1,152 +1,198 @@
 import React from "react";
-import { connect } from "react-redux";
-import { Field, reduxForm } from "redux-form";
-import { loadAccount } from "../../../store";
-const data = {
-	// used to populate "account" reducer when "Load" is clicked
-	firstName: "Jane",
-	lastName: "Doe",
-	age: "42",
-	sex: "female",
-	employed: true,
-	favoriteColor: "Blue",
-	bio: "Born to write amazing Redux code."
+import { Form, Field } from "react-final-form";
+
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+const load = async () => {
+	await sleep(2000);
+	return {
+		firstName: "Vaibhav",
+		lastName: "Satam",
+		email: "vaibhav.satam@accionlabs.com",
+		toppings: ["ham", "mushrooms"]
+	};
 };
-const colors = ["Red", "Orange", "Yellow", "Green", "Blue", "Indigo", "Violet"];
 
-let InitializeFromStateForm = props => {
-	const { load } = props;
-	return (
-		<div className="row">
-			<div className="col-md-12">
-				<h2>Initialize From State Form</h2>
-				<hr />
-			</div>
-			<div className="col-md-8">
-				<form>
-					<div className="form-group">
-						<label>First Name</label>
-						<Field
-							name="firstName"
-							component="input"
-							type="text"
-							className="form-control"
-							placeholder="First Name"
-						/>
-					</div>
-					<div className="form-group">
-						<label>Last Name</label>
-						<Field
-							name="lastName"
-							component="input"
-							type="text"
-							className="form-control"
-							placeholder="Last Name"
-						/>
-					</div>
-					<div className="form-group">
-						<label>Age</label>
-						<Field
-							name="age"
-							className="form-control"
-							component="input"
-							type="number"
-							placeholder="Age"
-						/>
-					</div>
-					<fieldset className="form-group">
-						<label>Sex</label>
-						<div className="form-check">
-							<label className="form-check-label">
-								<Field
-									name="sex"
-									className="form-check-input"
-									component="input"
-									type="radio"
-									value="male"
-								/>{" "}
-								Male
-							</label>
-						</div>
-						<div className="form-check">
-							<label className="form-check-label">
-								<Field
-									name="sex"
-									className="form-check-input"
-									component="input"
-									type="radio"
-									value="female"
-								/>{" "}
-								Female
-							</label>
-						</div>
-					</fieldset>
-					<div className="form-group">
-						<label>Favorite Color</label>
-						<div>
-							<Field
-								className="form-control"
-								name="favoriteColor"
-								component="select"
-							>
-								<option value="">Select a color...</option>
-								{colors.map(colorOption => (
-									<option value={colorOption} key={colorOption}>
-										{colorOption}
-									</option>
-								))}
-							</Field>
-						</div>
-					</div>
-					<div className="form-check">
-						<label className="form-check-label" htmlFor="employed">
-							<Field
-								name="employed"
-								id="employed"
-								className="form-check-input"
-								component="input"
-								type="checkbox"
-							/>
-							Employed
-						</label>
-					</div>
-					<div className="form-group">
-						<label>Bio</label>
+const onSubmit = async values => {
+	await sleep(300);
+	window.alert(JSON.stringify(values, 0, 2));
+};
 
-						<Field className="form-control" name="bio" component="textarea" />
-					</div>
-				</form>
-			</div>
-			<div className="col-md-4">
-				<div>
-					<button type="button" onClick={() => load(data)}>
-						Load State
-					</button>
+class InitializeFromStateForm extends React.Component {
+	state = { data: {} };
+
+	async componentDidMount() {
+		this.setState({ loading: true });
+		const data = await load();
+		this.setState({ loading: false, data });
+	}
+
+	render() {
+		return (
+			<div class="row">
+				<div className="col-md-12">
+					<h2>Simple Form</h2>
+					<hr />
 				</div>
-				<br />
-				<pre>
-					{JSON.stringify(
-						props.initialValues ? props.initialValues : undefined,
-						null,
-						2
-					)}
-				</pre>
+				<Form
+					onSubmit={onSubmit}
+					initialValues={this.state.data}
+					render={({ handleSubmit, pristine, reset, submitting, values }) => {
+						return (
+							<div>
+								<div className="col-md-8">
+									<form onSubmit={handleSubmit}>
+										{this.state.loading && <div className="loading" />}
+										<div className="form-group">
+											<label>First Name</label>
+											<Field
+												name="firstName"
+												component="input"
+												className="form-control"
+												type="text"
+												placeholder="First Name"
+											/>
+										</div>
+										<div className="form-group">
+											<label>Last Name</label>
+											<Field
+												name="lastName"
+												className="form-control"
+												component="input"
+												type="text"
+												placeholder="Last Name"
+											/>
+										</div>
+										<div className="form-group">
+											<label>Email</label>
+											<Field
+												name="email"
+												component="input"
+												className="form-control"
+												type="email"
+												placeholder="Email"
+											/>
+										</div>
+										<div className="form-group">
+											<label>Favorite Color</label>
+											<Field
+												name="favoriteColor"
+												className="form-control"
+												component="select"
+											>
+												<option />
+												<option value="#ff0000">❤️ Red</option>
+												<option value="#00ff00">💚 Green</option>
+												<option value="#0000ff">💙 Blue</option>
+											</Field>
+										</div>
+										<div className="form-group">
+											<label>Toppings</label>
+											<Field
+												name="toppings"
+												className="form-control"
+												component="select"
+												multiple
+											>
+												<option value="ham">🐷 Ham</option>
+												<option value="mushrooms">🍄 Mushrooms</option>
+												<option value="cheese">🧀 Cheese</option>
+												<option value="chicken">🐓 Chicken</option>
+												<option value="pineapple">🍍 Pinapple</option>
+											</Field>
+										</div>
+										<div className="form-group">
+											<label>Best Stooge?</label>
+											<div className="form-check">
+												<label className="form-check-label">
+													<Field
+														name="stooge"
+														component="input"
+														type="radio"
+														className="form-check-input"
+														value="larry"
+													/>{" "}
+													Larry&nbsp;
+												</label>
+												<label className="form-check-label">
+													<Field
+														name="stooge"
+														component="input"
+														type="radio"
+														className="form-check-input"
+														value="moe"
+													/>{" "}
+													Moe&nbsp;
+												</label>
+												<label className="form-check-label">
+													<Field
+														name="stooge"
+														component="input"
+														type="radio"
+														className="form-check-input"
+														value="curly"
+													/>{" "}
+													Curly&nbsp;
+												</label>
+											</div>
+										</div>
+										<fieldset className="form-group">
+											<label>Sex</label>
+											<div className="form-check">
+												<label className="form-check-label">
+													<Field
+														name="sauces"
+														component="input"
+														type="checkbox"
+														value="ketchup"
+													/>{" "}
+													Ketchup
+												</label>
+											</div>
+											<div className="form-check">
+												<label className="form-check-label">
+													<Field
+														name="sauces"
+														component="input"
+														type="checkbox"
+														value="mustard"
+													/>{" "}
+													Mustard
+												</label>
+											</div>
+										</fieldset>
+										<div className="form-group">
+											<label>Notes</label>
+											<Field
+												name="notes"
+												className="form-control"
+												component="textarea"
+												placeholder="Notes"
+											/>
+										</div>
+										<div className="buttons">
+											<button type="submit" disabled={submitting || pristine}>
+												Submit
+											</button>
+											<button
+												type="button"
+												onClick={reset}
+												disabled={submitting || pristine}
+											>
+												Reset
+											</button>
+										</div>
+									</form>
+								</div>
+								<div className="col-md-4">
+									<pre>{JSON.stringify(values, 0, 2)}</pre>
+								</div>
+							</div>
+						);
+					}}
+				/>
 			</div>
-		</div>
-	);
-};
-
-// Decorate with reduxForm(). It will read the initialValues prop provided by connect()
-InitializeFromStateForm = reduxForm({
-	form: "initializeFromState" // a unique identifier for this form
-})(InitializeFromStateForm);
-
-// You have to connect() to any reducers that you wish to connect to yourself
-InitializeFromStateForm = connect(
-	state => ({
-		initialValues: state.account.data
-	}),
-	{ load: loadAccount } // bind account loading action creator
-)(InitializeFromStateForm);
-
+		);
+	}
+}
 export default InitializeFromStateForm;

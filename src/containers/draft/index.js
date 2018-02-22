@@ -1,61 +1,103 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { Component } from "react";
+import { EditorState } from "draft-js";
+import { Editor } from "react-draft-wysiwyg";
+import { convertToRaw } from "draft-js";
+import draftToMarkdown from "draftjs-to-markdown";
+import { CustomOption } from "./customToolbar";
+import { ColorPic } from "./react-color";
+import EditorToolbarWhenFocused from "./editor-toolbar";
+import EditorI18n from "./localization";
+import { EditorImage } from "./image";
 
-export const Draft = () => {
-	return (
-		<div>
-			<h3>
-				<Link to="/draft/mentions">Mentions Demo</Link> #
-			</h3>
-			<blockquote>
-				<p>This allows the user to choose an entry from a list</p>
-			</blockquote>
-			<hr />
-			<h3>
-				<Link to="/draft/emoji">Emojis Demo</Link> #
-			</h3>
-			<blockquote>
-				<p>
-					Consistent Emoji display across all platforms, independent of the host
-					system.
-				</p>
-			</blockquote>
-			<hr />
-			<h3>
-				<Link to="/draft/hashtag">Hashtag Demo</Link> #
-			</h3>
-			<blockquote>
-				<p>Highlighting words starting with a number sign (#).</p>
-			</blockquote>
-			<hr />
-			<h3>
-				<Link to="/draft/inline">Inline Demo</Link> #
-			</h3>
-			<blockquote>
-				<p>Toolbar shows up once we select part of the text</p>
-			</blockquote>
-			<hr />
-			<h3>
-				<Link to="/draft/sidebar">Static Toolbar Demo</Link> #
-			</h3>
-			<blockquote>
-				<p>The toolbar can be used for formatting text</p>
-			</blockquote>
-			<hr />
-			<h3>
-				<Link to="/draft/video">Videos Demo</Link> #
-			</h3>
-			<blockquote>
-				<p>The editor can be used to add videos</p>
-			</blockquote>
-			<hr />
-		</div>
-	);
-};
+export class Draft extends Component {
+	constructor(props) {
+		super(props);
 
-export { default as Mentions } from "./mentions";
-export { default as Emojis } from "./emoji";
-export { default as Hashtags } from "./hashtag";
-export { default as Inlines } from "./inline";
-export { default as SideToolbars } from "./sidetoolbar";
-export { default as Videos } from "./videos";
+		this.state = {
+			editorState: EditorState.createEmpty()
+		};
+	}
+
+	onEditorStateChange = editorState => {
+		this.setState({
+			editorState
+		});
+	};
+
+	render() {
+		const { editorState } = this.state;
+		return (
+			<div className="row">
+				<div className="col-md-10 col-md-offset-1">
+					<h2>Text Editor</h2>
+					<hr />
+					<Editor
+						editorState={editorState}
+						wrapperClassName="demo-wrapper"
+						editorClassName="demo-editor"
+						onEditorStateChange={this.onEditorStateChange}
+						toolbarCustomButtons={[<CustomOption />]}
+						toolbar={{
+							colorPicker: { component: ColorPic }
+						}}
+						localization={{
+							locale: "en"
+						}}
+						mention={{
+							separator: " ",
+							trigger: "@",
+							suggestions: [
+								{ text: "APPLE", value: "apple", url: "apple" },
+								{ text: "BANANA", value: "banana", url: "banana" },
+								{ text: "CHERRY", value: "cherry", url: "cherry" },
+								{ text: "DURIAN", value: "durian", url: "durian" },
+								{ text: "EGGFRUIT", value: "eggfruit", url: "eggfruit" },
+								{ text: "FIG", value: "fig", url: "fig" },
+								{ text: "GRAPEFRUIT", value: "grapefruit", url: "grapefruit" },
+								{ text: "HONEYDEW", value: "honeydew", url: "honeydew" }
+							]
+						}}
+					/>
+				</div>
+				<div className="col-md-10 col-md-offset-1">
+					<h3>Preview</h3>
+					<hr />
+				</div>
+				<div className="col-md-10 col-md-offset-1">
+					<textarea
+						className="editorState"
+						disabled
+						value={
+							editorState &&
+							draftToMarkdown(convertToRaw(editorState.getCurrentContent()))
+						}
+					/>
+				</div>
+				<div className="col-md-10 col-md-offset-1">
+					<h2>Toolbar When Focused</h2>
+					<hr />
+					<EditorToolbarWhenFocused
+						wrapperClassName="demo-wrapper"
+						editorClassName="demo-editor"
+					/>
+				</div>
+				<div className="col-md-10 col-md-offset-1">
+					<h2>Image Upload.</h2>
+					<hr />
+					<EditorImage
+						wrapperClassName="demo-wrapper"
+						editorClassName="demo-editor"
+					/>
+				</div>
+				<div className="col-md-10 col-md-offset-1">
+					<h2>Editor i18n - korean locale.</h2>
+					<hr />
+					<EditorI18n
+						wrapperClassName="demo-wrapper"
+						editorClassName="demo-editor"
+					/>
+				</div>
+			</div>
+		);
+	}
+}

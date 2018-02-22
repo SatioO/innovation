@@ -21,31 +21,31 @@ const renderField = ({ input, label, type, meta: { touched, error } }) => (
 const renderMembers = ({ fields, meta: { error, submitFailed } }) => (
 	<div>
 		<button type="button" onClick={() => fields.push({})}>
-			Add Member
+			Add Employee
 		</button>
 		{submitFailed && error && <span>{error}</span>}
-		{fields.map((member, index) => (
+		{fields.map((employee, index) => (
 			<div
 				className="card"
 				key={index}
 				style={{ padding: "20px", margin: "10px" }}
 			>
 				<div className="card-block">
-					<h4>Member #{index + 1}</h4>
+					<h4>Employee #{index + 1}</h4>
 					<Field
-						name={`${member}.firstName`}
+						name={`${employee}.firstName`}
 						type="text"
 						component={renderField}
 						label="First Name"
 					/>
 					<Field
-						name={`${member}.lastName`}
+						name={`${employee}.lastName`}
 						type="text"
 						component={renderField}
 						label="Last Name"
 					/>
 					<button type="button" onClick={() => fields.remove(index)}>
-						Remove Member
+						Remove Employee
 					</button>
 				</div>
 			</div>
@@ -63,39 +63,47 @@ let FieldArraysForm = props => {
 				<hr />
 			</div>
 			<form className="col-md-8" onSubmit={handleSubmit}>
-				<div className="col-md-12">
-					<Field
-						name="clubName"
-						type="text"
-						component={renderField}
-						label="Club Name"
-					/>
-				</div>
-				<div className="col-md-12">
-					<FieldArray name="members" component={renderMembers} />
-				</div>
-				<div className="col-md-12">
-					<br />
-					<button type="submit" disabled={submitting}>
-						Submit
-					</button>
-					<button
-						type="button"
-						disabled={pristine || submitting}
-						onClick={reset}
-					>
-						Clear Values
-					</button>
+				<div className="card">
+					<div className="card-block" style={{ padding: "10px" }}>
+						<div className="col-md-12">
+							<Field
+								name="CompanyName"
+								type="text"
+								component={renderField}
+								label="Company Name"
+							/>
+						</div>
+						<div className="col-md-12">
+							<FieldArray name="employees" component={renderMembers} />
+						</div>
+						<div className="col-md-12">
+							<br />
+							<button type="submit" disabled={submitting}>
+								Submit
+							</button>
+							<button
+								type="button"
+								disabled={pristine || submitting}
+								onClick={reset}
+							>
+								Clear Values
+							</button>
+						</div>
+					</div>
 				</div>
 			</form>
 			<div className="col-md-4">
-				<pre>
-					{JSON.stringify(
-						props.fieldArrays ? props.fieldArrays.values : undefined,
-						null,
-						2
-					)}
-				</pre>
+				<div className="card">
+					<div className="card-block" style={{ padding: "10px" }}>
+						<pre>
+							{JSON.stringify(
+								props.fieldArrays ? props.fieldArrays.values : undefined,
+								null,
+								2
+							)}
+						</pre>
+					</div>
+				</div>
 			</div>
 		</div>
 	);

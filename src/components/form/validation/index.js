@@ -67,84 +67,92 @@ let FieldLevelValidationForm = props => {
 				<hr />
 			</div>
 			<div className="col-md-8">
-				<form onSubmit={handleSubmit}>
-					<div className="form-group">
-						<Field
-							name="username"
-							type="text"
-							component={renderField}
-							label="Username"
-							validate={[required, maxLength15, minLength2]}
-							warn={alphaNumeric}
-						/>
+				<div className="card">
+					<div className="card-block" style={{ padding: "10px" }}>
+						<form onSubmit={handleSubmit}>
+							<div className="form-group">
+								<Field
+									name="username"
+									type="text"
+									component={renderField}
+									label="Username"
+									validate={[required, maxLength15, minLength2]}
+									warn={alphaNumeric}
+								/>
+							</div>
+							<div className="form-group">
+								<Field
+									name="email"
+									type="email"
+									component={renderField}
+									label="Email"
+									className="form-control"
+									validate={email}
+									warn={aol}
+								/>
+							</div>
+							<div className="form-group">
+								<Field
+									name="age"
+									type="number"
+									component={renderField}
+									label="Age"
+									className="form-control"
+									validate={[required, number, minValue18]}
+									warn={tooOld}
+								/>
+							</div>
+							<div className="form-group">
+								<Field
+									name="phone"
+									type="number"
+									className="form-control"
+									component={renderField}
+									label="Phone number"
+									validate={[required, phoneNumber]}
+								/>
+							</div>
+							<div>
+								<button type="submit" disabled={submitting}>
+									Submit
+								</button>
+								<button
+									type="button"
+									disabled={pristine || submitting}
+									onClick={reset}
+								>
+									Clear Values
+								</button>
+							</div>
+						</form>
 					</div>
-					<div className="form-group">
-						<Field
-							name="email"
-							type="email"
-							component={renderField}
-							label="Email"
-							className="form-control"
-							validate={email}
-							warn={aol}
-						/>
-					</div>
-					<div className="form-group">
-						<Field
-							name="age"
-							type="number"
-							component={renderField}
-							label="Age"
-							className="form-control"
-							validate={[required, number, minValue18]}
-							warn={tooOld}
-						/>
-					</div>
-					<div className="form-group">
-						<Field
-							name="phone"
-							type="number"
-							className="form-control"
-							component={renderField}
-							label="Phone number"
-							validate={[required, phoneNumber]}
-						/>
-					</div>
-					<div>
-						<button type="submit" disabled={submitting}>
-							Submit
-						</button>
-						<button
-							type="button"
-							disabled={pristine || submitting}
-							onClick={reset}
-						>
-							Clear Values
-						</button>
-					</div>
-				</form>
+				</div>
 			</div>
 			<div className="col-md-4">
-				<pre>
-					<div>
-						Values:
-						{JSON.stringify(
-							props.fieldLevelValidation
-								? props.fieldLevelValidation.values
-								: undefined,
-							null,
-							2
-						)}
+				<div className="card">
+					<div className="card-block" style={{ padding: "10px" }}>
+						<div>
+							<b>Values</b>:
+							<pre>
+								{JSON.stringify(
+									props.fieldLevelValidation
+										? props.fieldLevelValidation.values
+										: undefined,
+									null,
+									2
+								)}
+							</pre>
+						</div>
+						<div>
+							<b>Valid</b>: &nbsp;
+							{JSON.stringify(
+								props.fieldLevelValidation ? props.valid : undefined,
+								null,
+								2
+							)}
+						</div>
 					</div>
-					<div>
-						Valid:
-						{JSON.stringify(
-							props.fieldLevelValidation ? props.valid : undefined,
-							null,
-							2
-						)}
-					</div>
-				</pre>
+				</div>
 			</div>
 		</div>
 	);
